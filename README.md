@@ -3,6 +3,8 @@
 
 A simple and interactive ToDo application built with React and Vite. This app allows users to manage their tasks with features such as adding, editing, deleting, and dragging tasks to reorder them. It also supports marking tasks as complete and clearing all tasks.
 
+
+
 ## Features
 
 - **Add Tasks**: Add new tasks with a title.
@@ -13,9 +15,13 @@ A simple and interactive ToDo application built with React and Vite. This app al
 - **Clear All Tasks**: Remove all tasks with a single click.
 - **Local Storage**: Tasks are saved and loaded from local storage to persist across page refreshes.
 
+
+
 ## Live Demo
 
 You can view the live demo of the application [here](https://jaimin-bariya.github.io/React-ToDo/).
+
+
 
 ## Installation
 
@@ -47,6 +53,8 @@ To set up and run the project locally, follow these steps:
 
    Open `http://localhost:5173` in your browser to view the application.
 
+
+
 ## Build and Deploy
 
 To build and deploy the application, follow these commands:
@@ -67,6 +75,8 @@ To build and deploy the application, follow these commands:
 
    This command deploys the contents of the `dist` directory to GitHub Pages.
 
+
+
 ## Libraries and Tools Used
 
 - **React**: A JavaScript library for building user interfaces. [React](https://reactjs.org/)
@@ -79,13 +89,19 @@ To build and deploy the application, follow these commands:
 - **Autoprefixer**: A PostCSS plugin to parse CSS and add vendor prefixes. [Autoprefixer](https://github.com/postcss/autoprefixer)
 - **PostCSS**: A tool for transforming CSS with JavaScript plugins. [PostCSS](https://postcss.org/)
 
+
+
 ## Configuration
 
 - **Vite Base Path**: The `vite.config.js` file is configured with a base path of `/React-ToDo/` to match the GitHub Pages deployment path.
 
+
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or a pull request if you have any suggestions or improvements.
+
+
 
 ## License
 
