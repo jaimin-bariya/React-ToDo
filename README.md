@@ -4,6 +4,8 @@
 A simple and interactive ToDo application built with React and Vite. This app allows users to manage their tasks with features such as adding, editing, deleting, and dragging tasks to reorder them. It also supports marking tasks as complete and clearing all tasks.
 
 
+![ToDo App Screenshot](https://raw.githubusercontent.com/jaimin-bariya/React-ToDo/main/public/image.png)
+
 
 ## Features
 
