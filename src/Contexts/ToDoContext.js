@@ -6,6 +6,7 @@ const ToDoContext = createContext({
             id: 1,
             title: "Task 1",
             completed: false,
+            priority: "normal"
         }
     ],
 

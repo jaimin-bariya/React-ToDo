@@ -9,6 +9,7 @@ function App() {
   const [todos, setTodos] = useState([]) // todos is array, but every todo is object {id, title, status}
   const [completedALL, setCompletedALL] = useState(false)
   const [isUserCompleteALL, setIsUserCompleteALL] = useState(false)
+  
 
   const addToDo = (todo) => {
     setTodos((prevtodos) => [{id: Date.now(), ...todo}, ...prevtodos])
@@ -62,15 +63,51 @@ function App() {
 
     const {source, destination, type} = result;
 
+    
+    
+
     if (!destination) return;
 
+    // if (source.droppableId === destination.droppableId && source.index === destination.index) return;
+
+
+    const sourceDroppableID = source.droppableId
+    const destinationDroppableID = destination.droppableId
+
+
+    const sourceIndex = source.index
+    const destinationIndex = destination.index
+
+
+    
     const tempTodos = Array.from(todos)
 
-    const [recordedItem] = tempTodos.splice(source.index, 1)
+    if (sourceDroppableID === destinationDroppableID) {
 
-    tempTodos.splice(destination.index, 0, recordedItem)
+      
 
-    setTodos(tempTodos)
+      const [recordedItem] = tempTodos.splice(source.index, 1)
+
+      tempTodos.splice(destination.index, 0, recordedItem)
+
+      setTodos(tempTodos)
+
+    }
+
+    else {
+      
+      const [movedItem] = tempTodos.splice(sourceIndex, 1)
+      movedItem.priority = destinationDroppableID 
+      console.log(movedItem);
+      
+      
+      
+      tempTodos.splice(destinationIndex, 0, movedItem)
+      setTodos(tempTodos)
+    }
+
+
+    
 
   }
 
@@ -78,7 +115,7 @@ function App() {
   return (
     <ToDoContextProvider value={{todos, addToDo, updateToDo, deleteToDo, changeStatus}}>
       <div className="bg-[#172842] min-h-screen py-8">
-                <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
+                <div className="w-full max-w-4xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
                     <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
                     <div className="mb-4">
                         <ToDoForm />
@@ -101,49 +138,99 @@ function App() {
                     )}
                     
 
-                    <DragDropContext onDragEnd={afterDragEnd} >
+                    <div className='flex gap-6 justify-around'>
+                      <DragDropContext onDragEnd={afterDragEnd}  >
+                        
+                          <div className="flex flex-wrap gap-y-3">
+                            <Droppable droppableId='normal' type='TASKS'  >
+                              
+                              
+                              {(provided) => (
+
+                                <div {...provided.droppableProps} ref={provided.innerRef}>
+                                  <h3 className='mb-3 text-center'>ALL</h3>
+
+                                  {todos.filter((todo) => todo.priority === "normal").map((todo, index) => (
+
+                                    <Draggable draggableId={(todo.id).toString()} index={index} key={todo.id} >
+
+                                      {(provided) => (
+
+                                        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className='mb-4' >
+                                        
+                                        
+                                          <ToDoItems  todo={todo}/>
+
+                                        
+                                        
+                                        
+
+                                        </div>
+
+                                      )}
+
+                                    </Draggable>
+
+                                  ))}
+
+
+                                  {provided.placeholder}
+
+                                </div>  
+
+
+                              )}
+
+
+                            </Droppable>
+                            </div>
+
+
+                          <div className="flex flex-wrap gap-y-3" >
+                            <Droppable droppableId='high' type='TASKS' >
+                              
+                              
+                              {(provided) => (
+                              
+
+                                <div {...provided.droppableProps} ref={provided.innerRef}>
+                                  <h3 className='mb-3 text-center'>High Priority</h3>
+
+                                  {todos.filter((todo) => todo.priority === "high").map((todo, index) => (
+
+                                    <Draggable draggableId={(todo.id).toString()} index={index} key={todo.id} >
+
+                                      {(provided) => (
+
+                                        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className='mb-4' >
+                                        
+                                        
+                                          <ToDoItems  todo={todo}/>
+
+                                        </div>
+
+                                      )}
+
+                                    </Draggable>
+
+                                  ))}
+
+
+                                  {provided.placeholder}
+
+                                </div>  
+
+
+                              )}
+
+
+                            </Droppable>
+                          </div>
+
                       
 
-                        <Droppable droppableId='mainBoard' type='group' className="flex flex-wrap gap-y-3" >
-                          
-                          {(provided) => (
-
-                            <div {...provided.droppableProps} ref={provided.innerRef}>
-
-                              {todos.map((todo, index) => (
-
-                                <Draggable draggableId={(todo.id).toString()} index={index} key={todo.id} >
-
-                                  {(provided) => (
-
-                                    <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className='mb-4' >
-                                    
-                                    
-                                      <ToDoItems  todo={todo}/>
-
-                                    </div>
-
-                                  )}
-
-                                </Draggable>
-
-                              ))}
-
-
-                              {provided.placeholder}
-
-                            </div>  
-
-
-                          )}
-
-
-                        </Droppable>
-
-                    
-
-                    </DragDropContext>
-
+                      </DragDropContext>
+                    </div>
 
 
                 </div>
